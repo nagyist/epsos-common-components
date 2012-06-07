@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>eu.epsos</groupId>
+  <artifactId>epsos-common-components</artifactId>
+  <version>0.1-SNAPSHOT</version>
+  <packaging>pom</packaging>
+  <name>epsos-common-components</name>
+  <developers>
+      <developer><email>stm@nsi.dk</email><name>Steen Manniche</name><organization>National Board of E-Health, Denmark</organization><organizationUrl>http://www.nsi.dk</organizationUrl></developer>
+  </developers>
+  <inceptionYear>2012</inceptionYear>
+  <licenses><license><name>Apache License, Version 2.0</name><url>http://www.apache.org/licenses/LICENSE-2.0.html</url></license></licenses>
+  <scm><connection>git clone https://code.google.com/p/epsos-common-components/</connection><url>http://code.google.com/p/epsos-common-components/source/browse/</url></scm>
+  <url>http://code.google.com/p/epsos-common-components/</url>
+  
+  <modules>
+    <module>ihe-profiles</module>
+  </modules>
+</project>
