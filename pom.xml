@@ -7,7 +7,7 @@
   <packaging>pom</packaging>
   <name>epsos-common-components</name>
   <developers>
-      <developer><email>stm@nsi.dk</email><name>Steen Manniche</name><organization>National Board of E-Health, Denmark</organization><organizationUrl>http://www.nsi.dk</organizationUrl></developer>
+      <developer><id>steen@manniche.net</id><email>stm@nsi.dk</email><name>Steen Manniche</name><organization>National Board of E-Health, Denmark</organization><organizationUrl>http://www.nsi.dk</organizationUrl></developer>
   </developers>
   <inceptionYear>2012</inceptionYear>
   <licenses><license><name>Apache License, Version 2.0</name><url>http://www.apache.org/licenses/LICENSE-2.0.html</url></license></licenses>
