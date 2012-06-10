@@ -23,7 +23,7 @@
         </xsd:schema>
 		<xsd:schema elementFormDefault="qualified" targetNamespace="urn:ihe:iti:xcpd:2009">
 			<!-- Include the message schema -->
-			<xsd:include schemaLocation=".,/schema/IHE/XCPD_PLQ.v5.xsd"/>
+			<xsd:include schemaLocation="../schema/IHE/XCPD_PLQ.xsd"/>
 		</xsd:schema>
 		<!-- Include the Deferred Response Message Schema
 		     Uncomment this section if Deferred Response is supported
