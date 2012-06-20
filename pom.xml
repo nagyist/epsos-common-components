@@ -8,6 +8,7 @@
   <name>epsos-common-components</name>
   <developers>
       <developer><id>steen@manniche.net</id><email>stm@nsi.dk</email><name>Steen Manniche</name><organization>National Board of E-Health, Denmark</organization><organizationUrl>http://www.nsi.dk</organizationUrl></developer>
+      <developer><id>andreas@diabol.se</id><email>andreas@diabol.se</email><name>Andreas Rehn</name><organization>Apotekens Service, Sweden</organization><organizationUrl>http://www.apotekensservice.se</organizationUrl></developer>
   </developers>
   <inceptionYear>2012</inceptionYear>
   <licenses><license><name>Apache License, Version 2.0</name><url>http://www.apache.org/licenses/LICENSE-2.0.html</url></license></licenses>
