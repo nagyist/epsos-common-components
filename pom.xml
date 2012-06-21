@@ -14,11 +14,7 @@
   <licenses><license><name>Apache License, Version 2.0</name><url>http://www.apache.org/licenses/LICENSE-2.0.html</url></license></licenses>
   <scm><connection>git clone https://code.google.com/p/epsos-common-components/</connection><url>http://code.google.com/p/epsos-common-components/source/browse/</url></scm>
   <url>http://code.google.com/p/epsos-common-components/</url>
-  
-  <modules>
-    <module>ihe-profiles</module>
-  </modules>
-    <build>
+  <build>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
