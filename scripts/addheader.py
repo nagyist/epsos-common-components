@@ -21,7 +21,7 @@ def write_header( path, var_dict ):
     """Add the required copyright and license header to module in path"""
 
     if has_license( path ):
-       return
+       return False
 
     ft = ""
     with open( path, 'r' ) as candidate:
@@ -52,7 +52,8 @@ def write_header( path, var_dict ):
         
     with open( path, 'w' ) as new:
         new.write( ft )
-        print "Wrote %s license to %s"%( var_dict.get( 'license' ), path )
+
+    return True
 
 
 def add_header( options, path ):
@@ -62,12 +63,14 @@ def add_header( options, path ):
     - `type`:
     - `year`:
     """
+
     target = path[0]
     var_dict = set_vars( options )
 
     for (root, dirs, files) in os.walk(target):
-        if root.find(os.sep + '.') != -1: # skip all dot dirs
-            continue
+        # if root.find(os.sep + '.') != -1: # skip all dot dirs
+        #     print "Skipping %s"%( root )
+        #     continue
         for name in files:
             path = os.path.join( root, name )
             if os.path.islink( path ): #skip symlinks
@@ -75,7 +78,10 @@ def add_header( options, path ):
             print 'Checking if %s is of type %s' % ( path, options.filetype )
             if path.find( var_dict.get( 'postfix' ) ) > 0:
                 print 'Matched for %s found in %s' % ( var_dict.get( 'postfix' ), path )
-                write_header( path, var_dict )
+                if not options.dryrun:
+                    wrote_header = write_header( path, var_dict )
+                if not has_license( path ) and options.dryrun:
+                    print "Would have written %s license to %s"%( var_dict.get( 'license' ), path )
 
 def has_license( file_to_check ):
     """
@@ -84,7 +90,7 @@ def has_license( file_to_check ):
     - `file_to_check`:
     """
     gpl_re = "under the terms of the GNU General Public License"
-    asl_re = "Licensed to the Apache Software Foundation"
+    asl_re = " http:\/\/www.apache.org\/licenses\/LICENSE-2\\.0"
     generic_re = "[Cc]opyright\s\d{4}\s\w+"
 
     with open( file_to_check ) as ftc:
@@ -143,6 +149,11 @@ This script add license headers to files in `path` that does not already have a 
                       help="License to apply to the source files, can be one of {gpl, asl}")
     parser.add_option("-p", "--projectname", dest="project",
                       help="Name of the project")
+
+    parser.add_option("-n", "--dry-run", action="store_true", dest="dryrun", default=False,
+                      help="Does not actually commit the actions, just writes them to std.out")
+
+    
 
     (options, args) = parser.parse_args()
 
