@@ -75,13 +75,13 @@ def add_header( options, path ):
             path = os.path.join( root, name )
             if os.path.islink( path ): #skip symlinks
                 continue
-            print 'Checking if %s is of type %s' % ( path, options.filetype )
+            sys.stderr.write( 'Checking if %s is of type %s%s' % ( path, options.filetype, os.linesep ) )
             if path.find( var_dict.get( 'postfix' ) ) > 0:
-                print 'Matched for %s found in %s' % ( var_dict.get( 'postfix' ), path )
+                sys.stderr.write( 'Match for %s found in %s%s' % ( var_dict.get( 'postfix' ), path, os.linesep ) )
                 if not options.dryrun:
                     wrote_header = write_header( path, var_dict )
                 if not has_license( path ) and options.dryrun:
-                    print "Would have written %s license to %s"%( var_dict.get( 'license' ), path )
+                    sys.stderr.write( "Would have written %s license to %s%s"%( var_dict.get( 'license' ), path, os.linesep ) )
 
 def has_license( file_to_check ):
     """
@@ -96,16 +96,16 @@ def has_license( file_to_check ):
     with open( file_to_check ) as ftc:
         text = ftc.read()
         if re.search( gpl_re, text ):
-            print "found GPL in %s"%( file_to_check )
+            sys.stderr.write( "found GPL in %s%s"%( file_to_check, os.linesep ) )
             return True
         elif re.search( asl_re, text ):
-            print "found ASL in %s"%( file_to_check )
+            sys.stderr.write( "found ASL in %s%s"%( file_to_check, os.linesep ) )
             return True
         elif re.search( generic_re, text ):
-            print "found license in %s"%( file_to_check )
+            sys.stderr.write( "found license in %s%s"%( file_to_check, os.linesep ) )
             return True
         else:
-            print "found no license in %s"%( file_to_check )
+            sys.stderr.write( "found no license in %s%s"%( file_to_check, os.linesep ) )
             return False
 
 def set_vars( options ):
