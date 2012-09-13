@@ -158,11 +158,11 @@ This script add license headers to files in `path` that does not already have a 
     (options, args) = parser.parse_args()
 
     if not options.license:
-        sys.exit( "A license must be choosen." )
+        sys.exit( "A license must be choosen. Run this script with -h to see available options" )
     
     if not args:
-        sys.exit( "A path to start the search from must be specified" )
+        sys.exit( "A path to start the search from must be specified. Run this script with -h to see available options" )
     if len( args ) > 1:
-        sys.exit( "Only a path should be specified" )
+        sys.exit( "Only one path should be specified. Run this script with -h to see available options" )
     add_header( options, args )
 
