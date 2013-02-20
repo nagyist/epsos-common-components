@@ -29,6 +29,11 @@ import org.apache.commons.configuration.reloading.FileChangedReloadingStrategy;
 import org.hibernate.Session;
 import eu.epsos.configmanager.database.HibernateUtil;
 import eu.epsos.configmanager.database.model.Property;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -36,7 +41,7 @@ import org.slf4j.LoggerFactory;
  * MigrateProperties main class, that includes the main operation methods.
  *
  * @author Marcelo Fonseca<code> - marcelo.fonseca@iuz.pt</code>
- * 
+ *
  */
 public final class MigrateProperties {
 
@@ -59,7 +64,7 @@ public final class MigrateProperties {
      * @param args the program arguments
      * @throws ConfigurationException
      */
-    public static void main(final String[] args) throws ConfigurationException {
+    public static void main(final String[] args) throws ConfigurationException, FileNotFoundException, IOException {
 
         if (args.length != 2) {
             LOGGER.warn("USAGE: java ConfigManagerMigrationTool.java -f < srdc / epsos >");
@@ -96,10 +101,16 @@ public final class MigrateProperties {
      * @param epsosPropsFile the properties file name.
      * @throws ConfigurationException if the properties file reading wen wrong.
      */
-    private static void processProperties(final String epsosPropsFile) throws ConfigurationException {
+    private static void processProperties(final String epsosPropsFile) throws ConfigurationException, FileNotFoundException, IOException {
         LOGGER.info("READING CONFIGURATION FILE FROM: " + epsosPropsFile);
-
-        final PropertiesConfiguration config = new PropertiesConfiguration(new File(epsosPropsFile));
+        
+        File propsFile = new File(epsosPropsFile);
+        
+        processCommaProperties(propsFile, epsosPropsFile);
+        
+        propsFile = new File(epsosPropsFile);
+        
+        final PropertiesConfiguration config = new PropertiesConfiguration();
         config.setReloadingStrategy(new FileChangedReloadingStrategy());
 
         final Session session = HibernateUtil.getSessionFactory().openSession();
@@ -109,7 +120,7 @@ public final class MigrateProperties {
         session.beginTransaction();
 
         final Iterator it = config.getKeys();
-        
+
         while (it.hasNext()) {
             final String key = (String) it.next();
             final String value = (String) config.getString(key);
@@ -126,8 +137,9 @@ public final class MigrateProperties {
     }
 
     /**
-     * This method will build the properties path, based on the EPSOS_PROPS_PATH configuration.
-     * 
+     * This method will build the properties path, based on the EPSOS_PROPS_PATH
+     * configuration.
+     *
      * @param fileName the properties file name.
      * @return the properties file with full path.
      */
@@ -161,6 +173,34 @@ public final class MigrateProperties {
             }
         }
         return value;
+    }
+
+    /**
+     * This method will replace the commas with "\," to improve the processing by Apache-Commons
+     * 
+     * @param propertiesFile
+     * @param filePath
+     * @throws FileNotFoundException
+     * @throws IOException 
+     */
+    private static void processCommaProperties(File propertiesFile, String filePath) throws FileNotFoundException, IOException {
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(propertiesFile));
+            String line = "", oldtext = "";
+            while ((line = reader.readLine()) != null) {
+                oldtext += line + "\r\n";
+            }
+            reader.close();
+            // replace a word in a file
+            String newtext = oldtext.replaceAll(",", "\\,");
+
+            FileWriter writer = new FileWriter(filePath);
+            writer.write(newtext);
+            writer.close();
+
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        }
     }
 
     /**
