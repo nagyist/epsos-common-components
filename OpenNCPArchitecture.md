@@ -1,0 +1,3 @@
+# Introduction #
+
+An epSOS NCP (National Contact Point) is composed of an epSOS specific part and a national connector part. The aim of the OpenNCP project is to provide the common components of the epSOS specific part of an NCP. The national connector part is specified by the OpenNCP through an interface, describing the contract the implementing participating nation must implement in order to successfully run an NCP.
